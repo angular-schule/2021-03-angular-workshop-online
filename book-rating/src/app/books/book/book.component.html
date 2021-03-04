@@ -15,7 +15,7 @@
 
       <p>
         <strong>Preis:</strong>
-        {{ book.price }}
+        {{ book.price | currency:'EUR' }}
       </p>
     </div>
     <p>{{ book.description }}</p>
