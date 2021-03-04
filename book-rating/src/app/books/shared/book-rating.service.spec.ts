@@ -53,6 +53,7 @@ describe('BookRatingService', () => {
   
   it('it should not rate lower than 1', () => {
     book.rating = 1;
+    console.log(book.rating);
     const ratedBook = service.rateDown(book);
     expect(ratedBook.rating).toBe(1);
   });

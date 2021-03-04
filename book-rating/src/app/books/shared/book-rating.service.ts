@@ -9,11 +9,21 @@ export class BookRatingService {
   constructor() { }
 
   rateUp(book: Book): Book {
-    book.rating++; // keine gute Idee!
-    return book;
+    if (!book) { return null; }
+
+    return {
+      ...book,
+      rating: book.rating < 5 ? book.rating + 1 : 5
+    };
+  
   }
 
   rateDown(book: Book): Book {
-    return null; // TODO
+    if (!book) { return null; }
+
+    return {
+      ...book,
+      rating: book.rating > 1 ? book.rating - 1 : 1
+    };
   }
 }
