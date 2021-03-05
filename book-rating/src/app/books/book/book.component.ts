@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Book } from '../shared/book';
 
 @Component({
@@ -28,6 +28,10 @@ export class BookComponent implements OnInit {
 
   doRateDown() {
     this.rateDown.emit(this.book);
+  }
+
+  log() {
+    console.log('CD');
   }
 
 }

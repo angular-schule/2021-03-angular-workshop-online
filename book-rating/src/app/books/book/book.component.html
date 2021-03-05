@@ -12,7 +12,6 @@
       <div>
         <ng-container *ngFor="let x of getRating()">⭐️</ng-container>
       </div>
-
       <p>
         <strong>Preis:</strong>
         {{ book.price | currency:'EUR' }}
@@ -26,3 +25,5 @@
     </div>
   </div>
 </div>
+
+{{ log() }}
