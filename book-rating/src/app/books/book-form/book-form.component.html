@@ -1,2 +1,5 @@
-<input type="text" [(ngModel)]="myObj.title">
-{{ myObj | json }}
+<form [formGroup]="bookForm">
+    <input type="text" formControlName="isbn">
+</form>
+
+<pre>{{ bookForm.value | json }}</pre>
