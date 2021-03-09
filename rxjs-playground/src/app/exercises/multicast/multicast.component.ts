@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Subject, BehaviorSubject, ReplaySubject, Observable } from 'rxjs';
+import { Subject, BehaviorSubject, ReplaySubject, Observable, timer } from 'rxjs';
 import { share } from 'rxjs/operators';
 
 import { MeasureValuesService } from './measure-values.service';
@@ -20,6 +20,8 @@ export class MulticastComponent implements OnInit {
 
   ngOnInit() {
     /******************************/
+
+    this.measureValues$ = this.mvs.getValues();
 
     
     /******************************/

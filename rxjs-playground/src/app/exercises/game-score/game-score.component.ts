@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Subject, ReplaySubject } from 'rxjs';
+import { Subject, ReplaySubject, of } from 'rxjs';
 import { scan, reduce } from 'rxjs/operators';
 
 @Component({
@@ -23,6 +23,13 @@ export class GameScoreComponent implements OnInit {
 
     /******************************/
 
+    this.score$.pipe(
+      scan((acc, item) => acc + item, 0) // acc: letztes Zwischenergebnis; item: neues Element aus der Quelle
+    ).subscribe(score => this.currentScore = score);
+
+    this.score$.pipe(
+      reduce((acc, item) => acc + item, 0)
+    ).subscribe(score => this.finalScore = score);
     
     /******************************/
 
@@ -30,6 +37,28 @@ export class GameScoreComponent implements OnInit {
       next: e => this.logStream$.next(e),
       complete: () => this.logStream$.next('✅ COMPLETE')
     });
+
+    //////////////////////////
+
+    of(
+      'SETLANGANGULAR',
+      'SETNAMEFERDINAND',
+      'SETCITYLEIPZIG',
+      'SETNAMEFM'
+    ).pipe(
+      scan((state, message: string) => {
+        switch (message) {
+          case 'SETLANGANGULAR': return { ...state, lang: 'Angular', year: 2016 };
+          case 'SETNAMEFERDINAND': return { ...state, name: 'Ferdinand' };
+          case 'SETNAMEFM': return { ...state, name: 'FM' };
+          case 'SETCITYLEIPZIG': return { ...state, city: 'Leipzig' };
+          case 'SETCITYMUNICH': return { ...state, city: 'München' };
+          default: return state;
+        }
+      }, { foo: 'bar', lang: 'React' })
+    ).subscribe(e => console.log(e));
+
+
   }
 
   finishGame() {
