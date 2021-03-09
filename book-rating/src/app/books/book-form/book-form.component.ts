@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Book } from '../shared/book';
 
 @Component({
@@ -17,13 +17,48 @@ export class BookFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.bookForm = new FormGroup({
-      isbn: new FormControl('')
+      isbn: new FormControl('', [
+        Validators.required,
+        Validators.minLength(10),
+        Validators.maxLength(13),
+      ]),
+      title: new FormControl('', Validators.required),
+      description: new FormControl(''),
+      rating: new FormControl(1, [
+        Validators.min(1),
+        Validators.max(5),
+      ]),
+      price: new FormControl(1, Validators.min(1))
     });
   }
 
-  submitForm() {
-    // ...
-    this.submitBook.emit()
+  isInvalid(controlName: string): boolean {
+    const control = this.bookForm.get(controlName);
+    return control.touched && control.invalid;
+  }
+
+  hasError(controlName: string, errorCode: string): boolean {
+    const control = this.bookForm.get(controlName);
+    return control.hasError(errorCode) && control.touched;
+  }
+
+  submitForm(): void {
+    const book: Book = { ...this.bookForm.value }; // geht nur, weil Formular und Buch identisch sind
+    this.submitBook.emit(book);
   }
 
 }
+
+/*
+- Button ⭐️
+- Abschicken ⭐️
+- Buch erzeugen ⭐️
+- Event ⭐️
+- Feedback ⭐️
+- Service HTTP
+- Reaktion
+  - Meldung
+  - Redirect <----
+  - Formular Refresh
+  - Formular Reset
+*/
