@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { select, Store } from '@ngrx/store';
 import { Book } from '../shared/book';
 import { BookRatingService } from '../shared/book-rating.service';
 import { BookStoreService } from '../shared/book-store.service';
+import { loadBooks } from '../store/book.actions';
+import { selectAllBooks } from '../store/book.selectors';
 
 @Component({
   selector: 'br-dashboard',
@@ -13,10 +16,16 @@ export class DashboardComponent implements OnInit {
   books: Book[];
   url = 'https://angular.schule';
 
-  constructor(private rs: BookRatingService, private bs: BookStoreService) {}
+  constructor(private rs: BookRatingService, private bs: BookStoreService, private store: Store) {}
 
   ngOnInit(): void {
-    this.bs.getAll().subscribe(books => this.books = books);
+    // this.bs.getAll().subscribe(books => this.books = books);
+    this.store.dispatch(loadBooks());
+
+    // TODO: Loading (Selektor benutzen)
+    // TODO: AsyncPipe verwenden
+    this.store.pipe(select(selectAllBooks))
+      .subscribe(books => this.books = books);
   }
 
   private updateList(ratedBook: Book) {
