@@ -1,3 +1,10 @@
 <div class="form-group">
     <input type="text" class="form-control" [formControl]="searchControl">
 </div>
+
+
+<div *ngIf="results$ | async as results">
+    <ul>
+        <li *ngFor="let b of results">{{ b.title }}</li>
+    </ul>
+</div>
