@@ -17,7 +17,7 @@ export class BookCreateComponent implements OnInit {
 
   create(book: Book): void {
     this.bs.create(book).subscribe(() => {
-      this.router.navigate(['/books', book.isbn]);
+      this.router.navigate(['/books', book.isbn]); // alternativ: navigatebyUrl()
     });
   }
 
