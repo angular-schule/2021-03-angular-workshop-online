@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { fromEvent } from 'rxjs';
+import { fromEvent, timer } from 'rxjs';
 import { map, startWith, debounceTime } from 'rxjs/operators';
 
 @Component({

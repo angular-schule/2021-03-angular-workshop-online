@@ -34,6 +34,7 @@ export class AppComponent {
 
     const myObs$ = new Observable(producer);
     myObs$.subscribe(observer);
+    myObs$.subscribe(e => console.log(e));
   
   }
 }

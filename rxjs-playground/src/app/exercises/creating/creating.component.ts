@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, of, from, timer, interval, ReplaySubject } from 'rxjs';
-import { map, filter, tap } from 'rxjs/operators';
+import { map, filter, tap, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'rxw-creating',
@@ -24,9 +24,10 @@ export class CreatingComponent implements OnInit {
     /******************************/
 
     // Finnische Notation
-    const myObs$ = timer(0, 1000).pipe(
+    const myObs$ = timer(2000, 1000).pipe(
       map(e => e * 3),
-      filter(e => e % 2 === 0)
+      filter(e => e % 2 === 0),
+      startWith(1000, 2000)
     );
     
     
